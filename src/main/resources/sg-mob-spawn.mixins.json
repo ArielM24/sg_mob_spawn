@@ -3,7 +3,7 @@
 	"package": "com.sg.mob_spawn.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
-		"ExampleMixin"
+		"DataSaverMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
