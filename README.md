@@ -1,4 +1,4 @@
-<img src="src/main/resources/assets/sg_mob_spawn/icon.png" width="128">
+<img src="src/main/resources/assets/sg-mob-spawn/icon.png" width="128">
 
 # Synchro Games Mob Spawns
 
