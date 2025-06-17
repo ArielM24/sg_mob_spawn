@@ -20,7 +20,6 @@ import net.minecraft.entity.mob.ZombieHorseEntity;
 import net.minecraft.entity.passive.BatEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.NbtElement;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.Difficulty;
@@ -43,11 +42,10 @@ public class SpawnEvents {
                 return;
             }
             BlazeEntity blaze = (BlazeEntity) entity;
-            NbtElement check = ((IEntityDataSaver) blaze).getSGMobSpawnPersistentData().get("breeze_spawn");
-            if (check != null) {
-                return;
-            }
-            ((IEntityDataSaver) blaze).getSGMobSpawnPersistentData().putString("breeze_spawn", "checked");
+            if(((IEntityDataSaver)entity).getChecked()){
+				return;
+			}
+			((IEntityDataSaver)entity).setChecked(true);
             boolean willSpawn = r.nextInt(100) <= breezeSpawnRatio;
             if (!willSpawn) {
                 return;
@@ -87,11 +85,10 @@ public class SpawnEvents {
                 return;
             }
             SpiderEntity spider = (SpiderEntity) entity;
-            NbtElement check = ((IEntityDataSaver) spider).getSGMobSpawnPersistentData().get("cave_spider_spawn");
-            if (check != null) {
-                return;
-            }
-            ((IEntityDataSaver) spider).getSGMobSpawnPersistentData().putString("cave_spider_spawn", "checked");
+            if(((IEntityDataSaver)entity).getChecked()){
+				return;
+			}
+			((IEntityDataSaver)entity).setChecked(true);
             boolean willSpawn = r.nextInt(100) <= caveSpiderSpawnRatio;
             if (!willSpawn) {
                 return;
@@ -129,11 +126,10 @@ public class SpawnEvents {
                 return;
             }
             EvokerEntity evoker = (EvokerEntity) entity;
-            NbtElement check = ((IEntityDataSaver) evoker).getSGMobSpawnPersistentData().get("illusioner_spawn");
-            if (check != null) {
-                return;
-            }
-            ((IEntityDataSaver) evoker).getSGMobSpawnPersistentData().putString("illusioner_spawn", "checked");
+            if(((IEntityDataSaver)entity).getChecked()){
+				return;
+			}
+			((IEntityDataSaver)entity).setChecked(true);
             boolean willSpawn = r.nextInt(100) <= illusionerSpawnRatio;
             if (!willSpawn) {
                 return;
@@ -173,11 +169,10 @@ public class SpawnEvents {
                 return;
             }
             BatEntity bat = (BatEntity) entity;
-            NbtElement check = ((IEntityDataSaver) bat).getSGMobSpawnPersistentData().get("silverfish_spawn");
-            if (check != null) {
-                return;
-            }
-            ((IEntityDataSaver) bat).getSGMobSpawnPersistentData().putString("silverfish_spawn", "checked");
+            if(((IEntityDataSaver)entity).getChecked()){
+				return;
+			}
+			((IEntityDataSaver)entity).setChecked(true);
             boolean willSpawn = r.nextInt(100) <= silverfishSpiderSpawnRatio;
             if (!willSpawn) {
                 return;
@@ -203,11 +198,11 @@ public class SpawnEvents {
                 return;
             }
             ZombieEntity zombie = (ZombieEntity) entity;
-            NbtElement check = ((IEntityDataSaver) zombie).getSGMobSpawnPersistentData().get("zombie_horse_spawn");
-            if (check != null) {
-                return;
-            }
-            ((IEntityDataSaver) zombie).getSGMobSpawnPersistentData().putString("zombie_horse_spawn", "checked");
+            if(((IEntityDataSaver)entity).getChecked()){
+				return;
+			}
+			((IEntityDataSaver)entity).setChecked(true);
+           
             boolean willSpawn = r.nextInt(100) <= zombieHorseSpawnRatio;
             if (!willSpawn) {
                 return;

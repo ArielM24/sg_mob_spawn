@@ -4,36 +4,32 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import com.sg.mob_spawn.interfaces.IEntityDataSaver;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.nbt.NbtCompound;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 
 @Mixin(Entity.class)
 public abstract class DataSaverMixin implements IEntityDataSaver {
-    private NbtCompound persistentData;
+    private Boolean checked = false;@Override
+    public Boolean getChecked(){
+        return checked;
+    }
 
     @Override
-    public NbtCompound getSGMobSpawnPersistentData(){
-        if(this.persistentData == null){
-            this.persistentData = new NbtCompound();
-        }
-        return this.persistentData;
+    public void setChecked(Boolean c){
+        checked = c;
+    }  
+
+    @Inject(method = "writeData", at = @At("HEAD"))
+    protected void injectWriteMethod(WriteView data, CallbackInfo info){
+       data.putBoolean("sg_mob_spawn_persistent_data", checked);
     }
 
-    @Inject(method = "writeNbt", at = @At("HEAD"))
-    protected void injectWriteMethod(NbtCompound nbt, CallbackInfoReturnable info){
-        if(persistentData != null){
-            nbt.put("sg_mob_spawn_persistent_data", persistentData);
-        }
-    }
-
-    @Inject(method = "readNbt", at = @At("HEAD"))
-    protected void injectReadMethod(NbtCompound nbt, CallbackInfo info){
-        if(nbt.contains("sg_mob_spawn_persistent_data")){
-            persistentData = nbt.getCompound("sg_mob_spawn_persistent_data").get();
-        }
+    @Inject(method = "readData", at = @At("HEAD"))
+    protected void injectReadMethod(ReadView data, CallbackInfo info){
+        checked = data.getBoolean("sg_mob_spawn_persistent_data", false);
     }
 }
