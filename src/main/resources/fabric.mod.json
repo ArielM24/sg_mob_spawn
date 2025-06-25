@@ -12,7 +12,7 @@
 		"sources": "https://github.com/ArielM24/sg_mob_spawn"
 	},
 	"license": "CC0-1.0",
-	"icon": "assets/sg-mob-spawn/icon.png",
+	"icon": "assets/sg-mob-spawn/sg-mob-spawn.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
