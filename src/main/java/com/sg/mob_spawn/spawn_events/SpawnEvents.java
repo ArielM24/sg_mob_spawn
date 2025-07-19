@@ -1,5 +1,6 @@
 package com.sg.mob_spawn.spawn_events;
 
+import java.rmi.registry.Registry;
 import java.util.Random;
 
 import com.sg.mob_spawn.interfaces.IEntityDataSaver;
@@ -20,9 +21,13 @@ import net.minecraft.entity.mob.ZombieHorseEntity;
 import net.minecraft.entity.passive.BatEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.Difficulty;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.BiomeKeys;
 
 public class SpawnEvents {
     public static final Random r = new Random();
@@ -45,6 +50,10 @@ public class SpawnEvents {
             if(((IEntityDataSaver)entity).getChecked()){
 				return;
 			}
+            RegistryKey<Biome> biome = serverLevel.getBiome(blaze.getBlockPos()).getKey().get();
+            if(!biome.toString().startsWith(BiomeKeys.WARPED_FOREST.toString())){
+                return;
+            }
 			((IEntityDataSaver)entity).setChecked(true);
             boolean willSpawn = r.nextInt(100) <= breezeSpawnRatio;
             if (!willSpawn) {
